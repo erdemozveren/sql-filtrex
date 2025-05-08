@@ -69,6 +69,7 @@ const grammar = {
     "value": [
       ["NUMBER", "$$ = {type:'NUMBER',value:Number(yytext)};"],
       ["STRING", "$$ = {type:'STRING',value:yytext};"],
+      ["NULL", "$$ = {type:'NULL'};"],
       ["SQL_PARAM", "$$ = {type:'SQL_PARAM',value:yytext};"],
       ["IDENTIFIER",
         `{

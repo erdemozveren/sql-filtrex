@@ -24,6 +24,14 @@ function astToSqlBricks(sql, node) {
       };
       const fn = opMap[op];
       if (!fn || !sql[fn]) throw new Error(`Unsupported comparison operator: ${op}`);
+      // alias for 'is null'
+      if (value?.type === 'NULL') {
+        if (fn === 'eq') {
+          return sql.isNull(astToSqlBricks(sql, column));
+        } else if (fn === 'notEq') {
+          return sql.isNotNull(astToSqlBricks(sql, column));
+        }
+      }
       return sql[fn](astToSqlBricks(sql, column), astToSqlBricks(sql, value));
     }
 
@@ -71,6 +79,9 @@ function astToSqlBricks(sql, node) {
       // e.g. { type:'CONST', value: 34 }
       // We inline constants as literal values
       return node.value;
+
+    case 'NULL':
+      return null;
 
     case 'SQL_PARAM':
       // raw value

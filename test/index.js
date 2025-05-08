@@ -11,6 +11,10 @@ function testQuery(input, options, expectedSql) {
       passedTestCount += 1;
     }
     console.log(`${pass ? '✅' : '❌'}`, input);
+    if (!pass) {
+      console.log('\t-> output : ', sqlString)
+      console.log('\t-> expected output : ', expectedSql)
+    }
   } catch (e) {
     if (expectedSql === null) {
       console.log(`✅ Threw Expected error: ${input} → ${e.message}`);
@@ -79,6 +83,16 @@ const tests = [
   },
   {
     input: "field is not null",
+    options: {},
+    expected: 'field IS NOT NULL'
+  },
+  {
+    input: "field = null",
+    options: {},
+    expected: 'field IS NULL'
+  },
+  {
+    input: "field != null",
     options: {},
     expected: 'field IS NOT NULL'
   },
