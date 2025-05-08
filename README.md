@@ -1,6 +1,13 @@
 # SQL-like expression parser to generate Where Expression for end-users
 
-A lightweight SQL-like expression parser built with Jison and SQLBricks. It supports logical operators, comparison expressions, SQL functions, and external constants for dynamic query generation.Its very lightweight and doesnt only dependency is jison, you should install sql-bricks depending on your sql engine sql-bricks,sql-bricks-sqlite,sql-bricks-postgres etc.
+A lightweight SQL-like expression parser built with Jison and SQLBricks. It supports logical operators, comparison expressions, SQL functions, and external constants for dynamic query generation.
+Its very lightweight only dependency is jison, you should install sql-bricks depending on your sql engine sql-bricks,sql-bricks-sqlite,sql-bricks-postgres etc.
+
+## Refs
+
+- [jison](https://github.com/zaach/jison)
+- [sql-bricks](https://github.com/cshaa/filtrex/)
+  - Inspired by [filtrex](https://github.com/cshaa/filtrex/)
 
 > [!WARNING]
 > Its Experimental,not fully battle tested nor it have such a goal, but its use sql-bricks to generate queries so its should safe as sql-bricks. NOT PRODUCTION READY,Use at your own risk.
