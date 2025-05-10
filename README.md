@@ -14,7 +14,7 @@ Its very lightweight only dependency is jison, you should install sql-bricks dep
 
 ## Features
 
-- Supports logical operators: `AND`, `OR`
+- Supports logical operators: `AND`, `OR`, `&&` (and), `||` (or)
 - Handles comparison operators: `=`, `!=`, `>`, `<`, `>=`, `<=`,`<>` and `is null` , `is not null`
 - support `IN` clauses with constants and literals
 - Validates and processes SQL functions like `UPPER()`, `LOWER()`, `SUBSTR()`

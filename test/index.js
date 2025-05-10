@@ -92,6 +92,16 @@ const tests = [
     expected: 'field IS NULL'
   },
   {
+    input: "(field = 2 || field2  > 3) && field3 <=10",
+    options: {},
+    expected: '(field = 2 OR field2 > 3) AND field3 <= 10'
+  },
+  {
+    input: "(field = 2 or field2  > 3) and field3 <=10",
+    options: {},
+    expected: '(field = 2 OR field2 > 3) AND field3 <= 10'
+  },
+  {
     input: "field != null",
     options: {},
     expected: 'field IS NOT NULL'

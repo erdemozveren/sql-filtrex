@@ -13,6 +13,8 @@ const grammar = {
       ["<>", "return 'NEQ';"],
       [">", "return 'GT';"],
       ["<", "return 'LT';"],
+      ["&&", "return 'AND';"],
+      ["\\|\\|", "return 'OR';"],
       ["and\\b", "return 'AND';"],
       ["or\\b", "return 'OR';"],
       ["not\\b", "return 'NOT';"],
