@@ -1,10 +1,10 @@
-const { filterToQuery } = require('../src/index.js');
+const filterQuery = require('../src/index.js').filterToQuery;
 const sql = require('sql-bricks');
 let passedTestCount = 0;
 function testQuery(input, options, expectedSql) {
   try {
     const prefix = 'SELECT * WHERE ';
-    let sqlString = sql.select().where(filterToQuery(sql, input, options)).toString();
+    let sqlString = sql.select().where(filterQuery(sql, input, options)).toString();
     sqlString = sqlString.substring(prefix.length)
     const pass = sqlString === expectedSql;
     if (pass) {

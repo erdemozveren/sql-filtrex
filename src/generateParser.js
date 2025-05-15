@@ -114,10 +114,4 @@ const grammar = {
   }
 }
 const parser = new jison.Parser(grammar);
-
-module.exports = function parseExpression(input, options = {}) {
-  const columns = Array.isArray(options.columns) && options.columns.length > 0 ? options.columns : null;
-  const functions = Array.isArray(options.functions) ? options.functions : [];
-  const constants = typeof options.constants === 'object' && options.constants !== null ? options.constants : {};
-  return parser.parse(input, columns, functions, constants);
-}
+module.exports = parser;

@@ -1,4 +1,13 @@
-const parseExpression = require('./parser.js');
+// lib/parser is auto generated on build by jison
+const parser = require('../lib/parser.js');
+
+function parseExpression(input, options = {}) {
+  const columns = Array.isArray(options.columns) && options.columns.length > 0 ? options.columns : null;
+  const functions = Array.isArray(options.functions) ? options.functions : [];
+  const constants = typeof options.constants === 'object' && options.constants !== null ? options.constants : {};
+  return parser.parse(input, columns, functions, constants);
+}
+
 function astToSqlBricks(sql, node) {
   // its already raw value
   switch (node.type) {
