@@ -2,7 +2,10 @@
   "name": "sql-filtrex",
   "version": "1.0.0",
   "main": "src/index.js",
-  "repository": "github:erdemozveren/sql-filtrex",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/erdemozveren/sql-filtrex.git"
+  },
   "files": [
     "lib/parser.js",
     "src/index.js",
