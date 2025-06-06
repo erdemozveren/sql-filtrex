@@ -1,16 +1,18 @@
-# SQL-like expression parser to generate Where Expression for end-users
+# SQL-like Expression Parser for Generating WHERE Clauses
 
-A lightweight SQL-like expression parser built with Jison and SQLBricks. It supports logical operators, comparison expressions, SQL functions, and external constants for dynamic query generation.
-Its very lightweight only dependency is jison, you should install sql-bricks depending on your sql engine sql-bricks,sql-bricks-sqlite,sql-bricks-postgres etc.
+A lightweight, SQL-like expression parser built with **Jison**, designed to help end-users create dynamic `WHERE` expressions. It supports logical operators, comparison expressions, SQL functions, and external constants.
+
+This package is dependency-free, except for SQL generation. You need to install and provide a compatible **SQLBricks** library (e.g., `sql-bricks`, `sql-bricks-sqlite`, `sql-bricks-postgres`, or a custom wrapper).
+
+---
 
 ## Refs
 
-- [jison](https://github.com/zaach/jison)
 - [sql-bricks](https://github.com/cshaa/filtrex/)
 - Inspired by [filtrex](https://github.com/cshaa/filtrex/)
 
 > [!WARNING]
-> Its Experimental,not fully battle tested nor it have such a goal, but its use sql-bricks to generate queries so its should safe as sql-bricks. NOT PRODUCTION READY,Use at your own risk.
+> Its use sql-bricks to generate queries so its should safe as sql-bricks. Use at your own risk.
 
 ## Features
 
@@ -24,35 +26,67 @@ Its very lightweight only dependency is jison, you should install sql-bricks dep
 
 ## Installation
 
-no npm package.
+You can install `sql-filtrex` via npm:
+
+```bash
+npm install sql-filtrex
+```
+
+### Peer Dependency
+
+`sql-filtrex` requires a SQL builder library that follows the [SQLBricks](https://github.com/CSNW/sql-bricks) interface for query generation. You can install the appropriate SQLBricks variant based on your database:
+
+```bash
+# For general SQL
+npm install sql-bricks
+
+# For SQLite
+npm install sql-bricks-sqlite
+
+# For PostgreSQL
+npm install sql-bricks-postgres
+```
+
+> 💡 You can also use any custom library that implements the same method interface as `sql-bricks`.
+
+---
 
 ## Usage
 
-You could look at test file to have some insight.
-Here's how you can use this to generate where expression:
+You can refer to the test files for more detailed examples. Here's a simple way to use `sql-filtrex` to generate a `WHERE` expression:
 
 ```javascript
-const { filterToQuery } = require("./src/index.js");
-const sql = require("sql-bricks"); // you should install manually and provide it to this library because sql-bricks has diffrent repos for each engine, sqlite,postgres etc. and it matters
+const { filterToQuery } = require("sql-filtrex");
+const sql = require("sql-bricks"); // Install the appropriate SQLBricks version for your DB engine
+```
 
+### Example
+
+```javascript
 const options = {
-  constants: { MY_CONST: "foo" }, // optional
-  columns: ["field1", "field2"], // optional, if not defined or empty  all fields allowed.
-  functions: ["UPPER", "LOWER", "SUBSTR"], // optional, if not defined or empty no functions allowed.
+  constants: { MY_CONST: "foo" }, // Optional: replace constants in the expression
+  columns: ["field1", "field2"], // Optional: restrict allowed fields (empty = allow all)
+  functions: ["UPPER", "LOWER", "SUBSTR"], // Optional: allow specific SQL functions
 };
-// you don't need to pass db connection just sql-bricks is okay.
+
+// No DB connection needed—just provide a compatible sql-bricks instance
 const filterWhere = filterToQuery(
   sql,
-  "field1 = MY_CONST and price>=10",
+  "field1 = MY_CONST and price >= 10",
   options,
 );
-// filterWhere is now same as calling
-// sql.and(sql.eq('field1','foo'),sql.gte('price',10))
-// and you you just provide it to query and chain it if needed
+
+// `filterWhere` is equivalent to:
+// sql.and(sql.eq('field1', 'foo'), sql.gte('price', 10))
+
+// Use it like any other sql-bricks expression
 const sqlQuery = sql.select().from("my_table").where(filterWhere).all();
 
 console.log(sqlQuery);
+// Output: SELECT * FROM my_table WHERE field1 = 'foo' AND price >= 10
 ```
+
+---
 
 ## Configuration
 

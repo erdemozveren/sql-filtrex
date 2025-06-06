@@ -120,3 +120,6 @@ const tests = [
 
 tests.forEach(({ input, options, expected }) => testQuery(input, options, expected));
 console.log(`Total: ${tests.length} <> Passed: ${passedTestCount} <> Failed: ${tests.length - passedTestCount}`)
+if (tests.length !== passedTestCount) {
+  process.exit(1);
+}
