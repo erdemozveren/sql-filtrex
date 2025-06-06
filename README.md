@@ -12,7 +12,7 @@ This package is dependency-free, except for SQL generation. You need to install 
 - Inspired by [filtrex](https://github.com/cshaa/filtrex/)
 
 > [!WARNING]
-> Its use sql-bricks to generate queries so its should safe as sql-bricks. Use at your own risk.
+> This package uses **sql-bricks** to generate queries, so it is as safe as **sql-bricks** itself. Use at your own risk.
 
 ## Features
 
